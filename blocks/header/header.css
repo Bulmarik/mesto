@@ -2,5 +2,5 @@
 @import url(../header/__line/header__line.css);
 
 .header {
-    width: 100%;
+    max-width: 882px;
 }
