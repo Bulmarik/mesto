@@ -5,4 +5,9 @@
     background: transparent;
     border: none;
     background-image: url(../../../images/Edit-Button.svg);
+    transition: opacity 0.3s ease-in-out;
+}
+
+.profile__edit-btn:hover {
+    opacity: 0.6;
 }
