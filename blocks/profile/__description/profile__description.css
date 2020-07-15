@@ -3,4 +3,17 @@
     font-family: Inter;
     font-size: 18px;
     line-height: 22px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 940px) {
+    .profile__description {
+        font-size: 14px;
+        line-height: 1.2;
+        text-align: center;
+        margin-top: 14px;
+        margin-bottom: 36px;
+    }
 }
