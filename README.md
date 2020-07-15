@@ -8,4 +8,4 @@
 Верстка сайта проводилась по макетам, представленным в редакторе Figma, с помощью технологий Flex-box и Grid Layout. Интерактивность элементов выполнена на JavaScript.
 Структура проекта оформлена в соответствии с правилами Nested БЭМ.
 
-[Посмотреть проект](https://bulmarik.github.io/russian-travel/index.html)
+[Посмотреть проект](https://bulmarik.github.io/mesto/index.html)
