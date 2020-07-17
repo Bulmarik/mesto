@@ -9,7 +9,6 @@
 <body class="page">
   <header class="header">
     <div class="header__logo"></div>
-    <div class="header__line"></div>
   </header>
   <main class="content">
     <section class="profile">
@@ -25,50 +24,52 @@
       </div>
       <button class="profile__add-btn" type="button"></button>
     </section>
-    <ul class="elements">
-      <li class="element">
-        <img class="element__image" src="./images/road-to-the-alatau.jpg" alt="Дорога к Алатау">
-        <div class="element__description">
-          <h2 class="element__name">Дорога к Алатау</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img class="element__image" src="./images/Almarasan-gorge.jpg" alt="Ущелье Алмарасан">
-        <div class="element__description">
-          <h2 class="element__name">Ущелье Алмарасан</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img class="element__image" src="./images/funicular-to-Shymbulak.jpg" alt="Фуникулер">
-        <div class="element__description">
-          <h2 class="element__name">Канатная дорога</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img class="element__image" src="./images/Shymbulak.jpg" alt="Чимбулак">
-        <div class="element__description">
-          <h2 class="element__name">Чимбулак</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img class="element__image" src="./images/842-steps.jpg" alt="842 ступени">
-        <div class="element__description">
-          <h2 class="element__name">842 ступени</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </li>
-      <li class="element">
-        <img class="element__image" src="./images/medeu-stadium.jpg" alt="Медеo">
-        <div class="element__description">
-          <h2 class="element__name">Cтадион Медеo</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </li>
-    </ul>
+    <section class="elements">
+      <ul class="elements__items">
+        <li class="elements__item">
+          <img class="elements__image" src="./images/road-to-the-alatau.jpg" alt="Дорога к Алатау">
+          <div class="elements__description">
+            <h2 class="elements__name">Дорога к Алатау</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__image" src="./images/almarasan-gorge.jpg" alt="Ущелье Алмарасан">
+          <div class="elements__description">
+            <h2 class="elements__name">Ущелье Алмарасан</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__image" src="./images/funicular-to-shymbulak.jpg" alt="Фуникулер">
+          <div class="elements__description">
+            <h2 class="elements__name">Канатная дорога</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__image" src="./images/shymbulak.jpg" alt="Чимбулак">
+          <div class="elements__description">
+            <h2 class="elements__name">Чимбулак</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__image" src="./images/842-steps.jpg" alt="842 ступени">
+          <div class="elements__description">
+            <h2 class="elements__name">842 ступени</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+        <li class="elements__item">
+          <img class="elements__image" src="./images/medeu-stadium.jpg" alt="Медеo">
+          <div class="elements__description">
+            <h2 class="elements__name">Cтадион Медеo</h2>
+            <button class="elements__like" type="button"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
   </main>
   <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -76,11 +77,11 @@
   <div class="popup">
     <div class="popup__container">
       <button class="popup__close-btn"></button>
-      <form class="form" name="popup-form" action="#" method="">
-        <h3 class="form__title">Редактировать профиль</h3>
-        <input class="form__input form__input_type_name" name="name" type="text" value="Булатов Марат">
-        <input class="form__input form__input_type_description" name="description" type="text" value="В поисках красоты">
-        <button class="form__button" type="submit">Сохранить</button>
+      <form class="popup__form" name="popup-form" action="#" method="post">
+        <h3 class="popup__title">Редактировать профиль</h3>
+        <input class="popup__input popup__input_type_name" name="name" type="text">
+        <input class="popup__input popup__input_type_description" name="description" type="text">
+        <button class="popup__button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>

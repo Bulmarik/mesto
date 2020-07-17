@@ -1,12 +1,12 @@
-.element {
+.elements__item {
     width: 282px;
-    height: 361px;
     border-radius: 10px;
     background-color: #fff;
+    overflow: hidden;
 }
 
-@media screen and (max-width: 940px) {
-    .element {
+@media screen and (max-width: 638px) {
+    .elements__item {
         justify-self: center;
     }
 }

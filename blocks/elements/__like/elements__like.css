@@ -1,10 +1,10 @@
-.element__like {
+.elements__like {
     min-width: 21px;
     height: 18px;
     background: transparent;
     border: none;
     outline: none;
-    background-image: url(../../../images/Like.svg);
+    background-image: url(../../../images/like.svg);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -12,6 +12,6 @@
     transition: opacity 0.3s ease-in-out;
 }
 
-.element__like:hover {
+.elements__like:hover {
     opacity: 0.6;
 }
