@@ -7,46 +7,25 @@ const profileDescription = document.querySelector('.profile__description');
 const inputName = document.querySelector('.popup__input_type_name');
 const inputDescription = document.querySelector('.popup__input_type_description');
 
-function defaultProfile() {
-    inputName.value = profileName.textContent;
-    inputDescription.value = profileDescription.textContent;
-}
+// То есть вы предлагаете данную функцию не объявлять, а сразу внести в тоггл? 
+// function defaultProfile() {
+//     inputName.value = profileName.textContent;
+//     inputDescription.value = profileDescription.textContent;
+// }
+// Я понял! Мы так делаем потому, что в дальнейшем это не будет задействовано нигде.
+// Поэтому и нет смысла создавать отдельную функцию)
+// Жаль, что мы можем общаться с вами только в итерациях.
+// Очень не хватает практических комментариев в рамках этого обучения.
+// После проверки все комментарии удалю и перезалью на гитхаб :)
 
 function togglePopup() {
     if (popup.classList.contains('popup_show') !== true) {
-        defaultProfile();
-        popup.classList.toggle('popup_show');
-    } else {
-        popup.classList.toggle('popup_show');
-    }
+        inputName.value = profileName.textContent;
+        inputDescription.value = profileDescription.textContent;
+    };
+    popup.classList.toggle('popup_show');
 }
-//Действительно, классно получается! Если, конечно, все верно написал.
-//Спасибо, что заставляете смотреть на возможности JS шире))
-//Вообще люблю ваши проверки) Всегда только позитив от исправлений и дополнений кода)
 
-
-
-
-// И что бы самому окончательно разобраться и не запутаться,
-// сделаю всё обратно последовательно. Надеюсь, оцените ход мысли :)
-
-// form.addEventListener('submit', (evt) => {
-//     evt.preventDefault();
-//     profileName.textContent = inputName.value;
-//     profileDescription.textContent = inputDescription.value;
-//     togglePopup();
-// });
-
-// то же самое, если записать как
-
-// form.addEventListener('submit', function(evt) {
-//     evt.preventDefault();
-//     profileName.textContent = inputName.value;
-//     profileDescription.textContent = inputDescription.value;
-//     togglePopup();
-// });
-
-// Вынесем всё из тела данной функции, задекларируем
 function editProfile(evt) {
     evt.preventDefault();
     profileName.textContent = inputName.value;
@@ -54,7 +33,6 @@ function editProfile(evt) {
     togglePopup();
 }
 
-// и добавим в качестве второго параметра к слушателю
 form.addEventListener('submit', editProfile);
 
 editBtn.addEventListener('click', togglePopup);
