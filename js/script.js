@@ -1,4 +1,5 @@
 const editBtn = document.querySelector('.profile__edit-btn');
+const addBtn = document.querySelector('.profile__add-btn');
 const closeBtn = document.querySelector('.popup__close-btn');
 const popup = document.querySelector('.popup');
 const form = document.querySelector('.popup__form');
@@ -8,7 +9,7 @@ const inputName = document.querySelector('.popup__input_type_name');
 const inputDescription = document.querySelector('.popup__input_type_description');
 
 function togglePopup() {
-    if (popup.classList.contains('popup_show') !== true) {
+    if (!popup.classList.contains('popup_show')) {
         inputName.value = profileName.textContent;
         inputDescription.value = profileDescription.textContent;
     };
@@ -27,3 +28,5 @@ form.addEventListener('submit', editProfile);
 editBtn.addEventListener('click', togglePopup);
 
 closeBtn.addEventListener('click', togglePopup);
+
+addBtn.addEventListener('click', togglePopup);
