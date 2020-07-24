@@ -57,6 +57,17 @@ const initialCards = [
 
 const cardTemplate = document.querySelector('.template-card').content.querySelector('.elements__item');
 
+
+
+const deleteCard = function(evt) {
+  evt.target.closest('.elements__item').remove();
+}
+
+const likeCard = function(evt) {
+  evt.target.classList.toggle('elements__like-btn_active');
+}
+
+
 initialCards.forEach(function(data) {
   
   const cardElement = cardTemplate.cloneNode(true);
@@ -67,5 +78,12 @@ initialCards.forEach(function(data) {
   const list = document.querySelector('.elements__items')
   cardName.textContent = data.name;
   cardImage.src = data.link;
+  cardImage.alt = data.name;
   list.prepend(cardElement);
+
+cardDelBtn.addEventListener('click', deleteCard);
+
+cardLikeBtn.addEventListener('click', likeCard);
+
+
 });
