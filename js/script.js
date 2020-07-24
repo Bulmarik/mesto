@@ -57,8 +57,6 @@ const initialCards = [
 
 const cardTemplate = document.querySelector('.template-card').content.querySelector('.elements__item');
 
-
-
 const deleteCard = function(evt) {
   evt.target.closest('.elements__item').remove();
 }
@@ -66,7 +64,6 @@ const deleteCard = function(evt) {
 const likeCard = function(evt) {
   evt.target.classList.toggle('elements__like-btn_active');
 }
-
 
 initialCards.forEach(function(data) {
   
@@ -84,6 +81,4 @@ initialCards.forEach(function(data) {
 cardDelBtn.addEventListener('click', deleteCard);
 
 cardLikeBtn.addEventListener('click', likeCard);
-
-
 });
