@@ -25,56 +25,12 @@
       <button class="profile__add-btn" type="button"></button>
     </section>
     <section class="elements">
-      <ul class="elements__items">
-        <!-- <li class="elements__item">
-          <img class="elements__image" src="./images/road_to_the_alatau.jpg" alt="Дорога к Алатау">
-          <div class="elements__description">
-            <h2 class="elements__name">Дорога к Алатау</h2>
-            <button class="elements__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__image" src="./images/almarasan_gorge.jpg" alt="Ущелье Алмарасан">
-          <div class="elements__description">
-            <h2 class="elements__name">Ущелье Алмарасан</h2>
-            <button class="elements__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__image" src="./images/funicular_to_shymbulak.jpg" alt="Фуникулер">
-          <div class="elements__description">
-            <h2 class="elements__name">Канатная дорога</h2>
-            <button class="elements__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__image" src="./images/shimbulak.jpg" alt="Чимбулак">
-          <div class="elements__description">
-            <h2 class="elements__name">Чимбулак</h2>
-            <button class="elements__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__image" src="./images/842_steps.jpg" alt="842 ступени">
-          <div class="elements__description">
-            <h2 class="elements__name">842 ступени</h2>
-            <button class="elements__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="elements__item">
-          <img class="elements__image" src="./images/medeu_stadium.jpg" alt="Медеo">
-          <div class="elements__description">
-            <h2 class="elements__name">Cтадион Медеo</h2>
-            <button class="elements__like-btn" type="button"></button>
-          </div>
-        </li> -->
-      </ul>
+      <ul class="elements__items"></ul>
     </section>
   </main>
   <footer class="footer">
-      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  
   <div class="popup popup_type_edit-profile">
     <div class="popup__container">
       <button class="popup__close-btn" type="button"></button>
@@ -97,7 +53,15 @@
       </form>
     </div>
   </div>
-
+  <div class="popup popup_type_image">
+    <div class="popup__container popup__container_type_image">
+      <button class="popup__close-btn" type="button"></button>
+      <figure class="popup__figure">
+        <img class="popup__image" src="" alt="">
+        <figcaption class="popup__figcapture"></figcaption>
+      </figure>
+    </div>
+  </div>
   <template class="template-card">
     <li class="elements__item">
       <button class="elements__del-btn" type="button"></button>
@@ -108,7 +72,6 @@
       </div>
     </li>
   </template>
-
   <script src="./js/script.js"></script>
 </body>
 </html>
