@@ -25,50 +25,17 @@ const inputUrl = document.querySelector('.popup__input_type_url');
 const imagePopupImg = imagePopup.querySelector('.popup__image');
 const imagePopupFigcapture = imagePopup.querySelector('.popup__figcapture');
 
-const deleteCard = function(evt) {
+const deleteCard = (evt) => {
   evt.target.closest('.elements__item').remove();
-}
+};
 
-const likeCard = function(evt) {
+const likeCard = (evt) => {
   evt.target.classList.toggle('elements__like-btn_active');
-}
+};
 
 function togglePopup(popup) {
-  if (!popup.classList.contains('popup_show')) {
-    inputName.value = profileName.textContent;
-    inputDescription.value = profileDescription.textContent;
-    inputPlace.value = "";
-    inputUrl.value = "";
-  };
   popup.classList.toggle('popup_show');
-}
-
-const initialCards = [
-  {
-      name: 'Cтадион Медеo',
-      link: './images/medeu_stadium.jpg'
-  },
-  {
-      name: '842 ступени',
-      link: './images/842_steps.jpg'
-  },
-  {
-      name: 'Чимбулак',
-      link: './images/shimbulak.jpg'
-  },
-  {
-      name: 'Канатная дорога',
-      link: './images/funicular_to_shymbulak.jpg'
-  },
-  {
-      name: 'Ущелье Алмарасан',
-      link: './images/almarasan_gorge.jpg'
-  },
-  {
-      name: 'Дорога к Алатау',
-      link: './images/road_to_the_alatau.jpg'
-  }
-];
+};
 
 function createCard(data) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -87,15 +54,15 @@ function createCard(data) {
     imagePopupImg.src = data.link;
     imagePopupFigcapture.textContent = data.name;
     togglePopup(imagePopup);
-  }
+  };
 
   cardImage.addEventListener('click', clickImage);
   return cardElement;
-}
+};
 
 function renderCard(data) {
   list.prepend(createCard(data));
-  }
+};
 
 initialCards.forEach(function(data) {
   renderCard(data);
@@ -105,34 +72,37 @@ function addCard(evt) {
   evt.preventDefault();
   renderCard({name: inputPlace.value, link: inputUrl.value});
   togglePopup(addPopup); 
-}
+};
 
 function editProfile(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
   togglePopup(editPopup); 
-}
+};
 
 editProfileBtn.addEventListener('click', () => {
-  togglePopup(editPopup)
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
+  togglePopup(editPopup);
 });
 
 addCardBtn.addEventListener('click', () => {
-  togglePopup(addPopup)
+  inputPlace.value = "";
+  inputUrl.value = "";
+  togglePopup(addPopup);
 });
 
-
 editProfileCloseBtn.addEventListener('click', () => {
-  togglePopup(editPopup)
+  togglePopup(editPopup);
 });
 
 addCardCloseBtn.addEventListener('click', () => {
-  togglePopup(addPopup)
+  togglePopup(addPopup);
 });
 
 imageCloseBtn.addEventListener('click', () => {
-  togglePopup(imagePopup)
+  togglePopup(imagePopup);
 });
 
 editForm.addEventListener('submit', editProfile);
