@@ -37,6 +37,8 @@ function togglePopup(popup) {
   if (!popup.classList.contains('popup_show')) {
     inputName.value = profileName.textContent;
     inputDescription.value = profileDescription.textContent;
+    inputPlace.value = "";
+    inputUrl.value = "";
   };
   popup.classList.toggle('popup_show');
 }
