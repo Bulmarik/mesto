@@ -35,7 +35,7 @@ const likeCard = (evt) => {
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_show');
-};
+}
 
 function createCard(data) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -58,11 +58,11 @@ function createCard(data) {
 
   cardImage.addEventListener('click', clickImage);
   return cardElement;
-};
+}
 
 function renderCard(data) {
   list.prepend(createCard(data));
-};
+}
 
 initialCards.forEach(function(data) {
   renderCard(data);
@@ -72,14 +72,14 @@ function addCard(evt) {
   evt.preventDefault();
   renderCard({name: inputPlace.value, link: inputUrl.value});
   togglePopup(addPopup); 
-};
+}
 
 function editProfile(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
   togglePopup(editPopup); 
-};
+}
 
 editProfileBtn.addEventListener('click', () => {
   inputName.value = profileName.textContent;
