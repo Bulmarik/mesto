@@ -71,7 +71,7 @@ initialCards.forEach(function(data) {
 function addCard(evt) {
   evt.preventDefault();
   renderCard({name: inputPlace.value, link: inputUrl.value});
-  togglePopup(addPopup); 
+  togglePopup(addPopup);
 }
 
 function editProfile(evt) {
@@ -79,6 +79,12 @@ function editProfile(evt) {
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
   togglePopup(editPopup); 
+}
+
+const checkEscape = (evt) => {
+  if(evt.key === "Escape") {
+    togglePopup(editPopup);
+  }
 }
 
 editProfileBtn.addEventListener('click', () => {
@@ -103,6 +109,22 @@ addCardCloseBtn.addEventListener('click', () => {
 
 imageCloseBtn.addEventListener('click', () => {
   togglePopup(imagePopup);
+});
+
+const setOverlayListener = () => {
+  const overlayList = Array.from(document.querySelectorAll('.popup__overlay'));
+  overlayList.forEach((overlay) => {
+    overlay.addEventListener('click', (evt) => {
+      togglePopup(evt.target.parentElement);
+    });
+  });
+}
+setOverlayListener();
+
+document.addEventListener('keydown', (evt) => {
+  if(evt.key === "Escape") {
+    togglePopup(document.querySelector('.popup_show'));
+  }
 });
 
 editForm.addEventListener('submit', editProfile);

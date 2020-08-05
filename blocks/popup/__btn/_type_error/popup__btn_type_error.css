@@ -1,0 +1,5 @@
+.popup__btn_type_error {
+    border: 1px solid #000000;
+    background-color: #E5E5E5;
+    opacity: 0.2;
+}
