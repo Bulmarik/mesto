@@ -35,6 +35,7 @@ const likeCard = (evt) => {
 
 function togglePopup(popup) {
   popup.classList.toggle('popup_show');
+
 }
 
 function createCard(data) {

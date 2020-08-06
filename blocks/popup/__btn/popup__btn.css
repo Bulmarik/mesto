@@ -7,7 +7,7 @@
     border-radius: 2px;
     border: none;
     padding: 0;
-    margin-top: 18px;
+    margin-top: 28px;
     transition: opacity 0.3s ease-in-out;
 }
 
@@ -20,6 +20,6 @@
     .popup__btn {
     min-height: 40px;
     font-size: 14px;
-    margin-top: 16px;
+    margin-top: 21px;
     }
 }
