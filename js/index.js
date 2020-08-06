@@ -10,6 +10,9 @@ const addCardBtn = document.querySelector('.profile__add-btn');
 const editForm = editPopup.querySelector('.popup__form');
 const addForm = addPopup.querySelector('.popup__form');
 
+const editProfileSubmitBtn = editForm.querySelector('.popup__btn')
+const addCardSubmitBtn = addForm.querySelector('.popup__btn')
+
 const editProfileCloseBtn = editPopup.querySelector('.popup__close-btn');
 const addCardCloseBtn = addPopup.querySelector('.popup__close-btn');
 const imageCloseBtn = imagePopup.querySelector('.popup__close-btn');
@@ -33,9 +36,20 @@ const likeCard = (evt) => {
   evt.target.classList.toggle('elements__like-btn_active');
 };
 
+const popupError = Array.from(document.querySelectorAll('.popup__error'));
+const popupInput = Array.from(document.querySelectorAll('.popup__input'));
+
+function eraseError(popupError, popupInput) {
+  popupError.forEach((error) => {
+    error.classList.remove('popup__error_visible');
+  })
+  popupInput.forEach((input) => {
+    input.classList.remove('popup__input_type_error');
+  })
+}
+
 function togglePopup(popup) {
   popup.classList.toggle('popup_show');
-
 }
 
 function createCard(data) {
@@ -49,6 +63,7 @@ function createCard(data) {
   cardImage.alt = data.name;
   cardDelBtn.addEventListener('click', deleteCard);
   cardLikeBtn.addEventListener('click', likeCard);
+
 
   const clickImage = (evt) => {
     evt.target.closest('elements__item');
@@ -82,21 +97,21 @@ function editProfile(evt) {
   togglePopup(editPopup); 
 }
 
-const checkEscape = (evt) => {
-  if(evt.key === "Escape") {
-    togglePopup(editPopup);
-  }
-}
-
 editProfileBtn.addEventListener('click', () => {
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
+  editProfileSubmitBtn.removeAttribute('disabled');
+  editProfileSubmitBtn.classList.remove('popup__btn_disabled');
+  eraseError(popupError, popupInput);
   togglePopup(editPopup);
 });
 
 addCardBtn.addEventListener('click', () => {
   inputPlace.value = "";
   inputUrl.value = "";
+  addCardSubmitBtn.setAttribute('disabled', true);
+  addCardSubmitBtn.classList.add('popup__btn_disabled');
+  eraseError(popupError, popupInput);
   togglePopup(addPopup);
 });
 
