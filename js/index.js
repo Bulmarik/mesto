@@ -49,7 +49,7 @@ function eraseError(popupError, popupInput) {
 }
 
 function togglePopup(popup) {
-  popup.classList.toggle('popup_show');
+  popup.classList.toggle('popup_opened');
 }
 
 function createCard(data) {
@@ -139,7 +139,7 @@ setOverlayListener();
 
 document.addEventListener('keydown', (evt) => {
   if(evt.key === "Escape") {
-    togglePopup(document.querySelector('.popup_show'));
+    togglePopup(document.querySelector('.popup_opened'));
   }
 });
 
