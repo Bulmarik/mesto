@@ -42,10 +42,10 @@ const popupInput = Array.from(document.querySelectorAll('.popup__input'));
 function eraseError(popupError, popupInput) {
   popupError.forEach((error) => {
     error.classList.remove('popup__error_visible');
-  })
+  });
   popupInput.forEach((input) => {
     input.classList.remove('popup__input_type_error');
-  })
+  });
 }
 
 function togglePopup(popup) {
