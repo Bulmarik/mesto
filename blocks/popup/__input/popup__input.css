@@ -2,7 +2,7 @@
     font-size: 14px;
     line-height: 1.25;
     padding: 0;
-    margin: 10px 0 20px;
+    margin: 5px 0 35px;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
@@ -10,6 +10,6 @@
 @media screen and (max-width: 650px) {
     .popup__input {
         font-size: 12px;
-        margin: 5px 0 15px;
+        margin: 5px 0 25px;
     }
 }
