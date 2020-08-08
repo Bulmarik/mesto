@@ -22,8 +22,6 @@ const enableValidation = ({formSelector, inputSelector, submitButtonSelector, in
       // Функция установки слушателей на поля форм
       inputElement.addEventListener('input', (evt) => {
 
-        // const btnSubmit = formElement.querySelector(submitButtonSelector);
-
         // Функция скрытия ошибок полей форм
         function hideInputError(formElement, inputElement) {
           const errorElement = formElement.querySelector(`#${inputElement.name}-error`);

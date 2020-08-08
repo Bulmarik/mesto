@@ -36,22 +36,6 @@ const likeCard = (evt) => {
   evt.target.classList.toggle('elements__like-btn_active');
 };
 
-const popupError = Array.from(document.querySelectorAll('.popup__error'));
-const popupInput = Array.from(document.querySelectorAll('.popup__input'));
-
-function eraseError(popupError, popupInput) {
-  popupError.forEach((error) => {
-    error.classList.remove('popup__error_visible');
-  });
-  popupInput.forEach((input) => {
-    input.classList.remove('popup__input_type_error');
-  });
-}
-
-function togglePopup(popup) {
-  popup.classList.toggle('popup_opened');
-}
-
 function createCard(data) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.elements__image');
@@ -63,7 +47,6 @@ function createCard(data) {
   cardImage.alt = data.name;
   cardDelBtn.addEventListener('click', deleteCard);
   cardLikeBtn.addEventListener('click', likeCard);
-
 
   const clickImage = (evt) => {
     evt.target.closest('elements__item');
@@ -97,12 +80,48 @@ function editProfile(evt) {
   togglePopup(editPopup); 
 }
 
+function togglePopup(popup) {
+  popup.classList.toggle('popup_opened');
+  if (popup.classList.contains('popup_opened')) {
+    addEventListener('keydown', closePopupEsc);
+  } else {
+    removeEventListener('keydown', closePopupEsc);
+  }
+}
+
+function closePopupEsc(evt) {
+  if(evt.key === "Escape") {
+    togglePopup(document.querySelector('.popup_opened'));
+  }
+}
+
+const setOverlayListener = () => {
+  const overlayList = Array.from(document.querySelectorAll('.popup__overlay'));
+  overlayList.forEach((overlay) => {
+    overlay.addEventListener('click', (evt) => {
+      togglePopup(evt.target.parentElement);
+    });
+  });
+}
+setOverlayListener();
+
+function eraseError(popup) {
+  const popupError = Array.from(popup.querySelectorAll('.popup__error'));
+  popupError.forEach((error) => {
+    error.classList.remove('popup__error_visible');
+  });
+  const popupInput = Array.from(popup.querySelectorAll('.popup__input'));
+  popupInput.forEach((input) => {
+    input.classList.remove('popup__input_type_error');
+  });
+}
+
 editProfileBtn.addEventListener('click', () => {
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
   editProfileSubmitBtn.removeAttribute('disabled');
   editProfileSubmitBtn.classList.remove('popup__btn_disabled');
-  eraseError(popupError, popupInput);
+  eraseError(editPopup);
   togglePopup(editPopup);
 });
 
@@ -111,7 +130,7 @@ addCardBtn.addEventListener('click', () => {
   inputUrl.value = "";
   addCardSubmitBtn.setAttribute('disabled', true);
   addCardSubmitBtn.classList.add('popup__btn_disabled');
-  eraseError(popupError, popupInput);
+  eraseError(addPopup);
   togglePopup(addPopup);
 });
 
@@ -125,22 +144,6 @@ addCardCloseBtn.addEventListener('click', () => {
 
 imageCloseBtn.addEventListener('click', () => {
   togglePopup(imagePopup);
-});
-
-const setOverlayListener = () => {
-  const overlayList = Array.from(document.querySelectorAll('.popup__overlay'));
-  overlayList.forEach((overlay) => {
-    overlay.addEventListener('click', (evt) => {
-      togglePopup(evt.target.parentElement);
-    });
-  });
-}
-setOverlayListener();
-
-document.addEventListener('keydown', (evt) => {
-  if(evt.key === "Escape") {
-    togglePopup(document.querySelector('.popup_opened'));
-  }
 });
 
 editForm.addEventListener('submit', editProfile);
