@@ -7,28 +7,25 @@ const object = {
   errorClass: 'popup__error_visible'
 };
 
-// Я аж сам удивился, до чего получилось разобрать эту "матрёшку" :) Но поначалу это задание мне казалось неосуществимым!
-// Спасибо за хороший опыт!
-
 const enableValidation = (object) => setFormEventListener (object);
 enableValidation(object);
 
 // Функция установки слушателей формы
-function setFormEventListener ({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}) {
+function setFormEventListener ({formSelector, inputSelector, submitButtonSelector, inputErrorClass, errorClass}) {
   const forms = Array.from(document.querySelectorAll(formSelector));
   forms.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => evt.preventDefault());
-    setInputEventLisneners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass);
+    setInputEventLisneners(formElement, inputSelector, submitButtonSelector, inputErrorClass, errorClass);
   });
 }
 
 // Функция установки слушателей на поля форм
-function setInputEventLisneners(formElement, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass) {
+function setInputEventLisneners(formElement, inputSelector, submitButtonSelector, inputErrorClass, errorClass) {
   const inputs = Array.from(formElement.querySelectorAll(inputSelector));
   inputs.forEach((inputElement) => {
     inputElement.addEventListener('input', (evt) => {
       checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
-      toggleButtonState(inputs, formElement, inactiveButtonClass, submitButtonSelector);
+      toggleButtonState(inputs, formElement, submitButtonSelector);
     });
   });
 }
@@ -49,7 +46,7 @@ function showInputError(formElement, inputElement, inputErrorClass, errorClass) 
   errorElement.classList.add(errorClass);
 }
 
-/// Функция проверки валидности конкретного поля формы
+// Функция проверки валидности конкретного поля формы
 function checkInputValidity(formElement, inputElement, inputErrorClass, errorClass) {
   if (inputElement.validity.valid) {
     hideInputError(formElement, inputElement, inputErrorClass, errorClass); 
@@ -59,14 +56,24 @@ function checkInputValidity(formElement, inputElement, inputErrorClass, errorCla
 }
 
 // Функция контроля состояния кнопки сабмита форм
-function toggleButtonState(inputs, formElement, inactiveButtonClass, submitButtonSelector) {
+function toggleButtonState(inputs, formElement, submitButtonSelector) {
   const isFormValid = inputs.some((inputElement) => !inputElement.validity.valid);
   const btnSubmit = formElement.querySelector(submitButtonSelector);
   if (!isFormValid) {
-    btnSubmit.classList.remove(inactiveButtonClass);
-    btnSubmit.removeAttribute('disabled');
+    activeSubmitBtn(btnSubmit);
   } else {
-    btnSubmit.classList.add(inactiveButtonClass);
-    btnSubmit.setAttribute('disabled', true);
+    inactiveSubmitBtn(btnSubmit);
   }
+}
+
+//Функция активации кнопки сабмита
+function activeSubmitBtn(button) {
+  button.removeAttribute('disabled');
+  button.classList.remove('popup__btn_disabled');
+}
+
+//Функция деактивации кнопки сабмита
+function inactiveSubmitBtn(button) {
+  button.setAttribute('disabled', true);
+  button.classList.add('popup__btn_disabled');
 }

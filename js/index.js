@@ -47,20 +47,31 @@ function createCard(data) {
   cardImage.alt = data.name;
   cardDelBtn.addEventListener('click', deleteCard);
   cardLikeBtn.addEventListener('click', likeCard);
+  
+  // const clickImage = (evt) => {
+  //   evt.target.closest('elements__item');
+  //   imagePopupImg.src = data.link;
+  //   imagePopupFigcapture.textContent = data.name;
+  //   togglePopup(imagePopup);
+  // };
 
-  const clickImage = (evt) => {
-    evt.target.closest('elements__item');
-    imagePopupImg.src = data.link;
-    imagePopupFigcapture.textContent = data.name;
-    togglePopup(imagePopup);
-  };
+  // cardImage.addEventListener('click', clickImage);
 
-  cardImage.addEventListener('click', clickImage);
+  cardImage.addEventListener('click', () => {
+    clickImage(data)
+  });
+
   return cardElement;
 }
 
 function renderCard(data) {
   list.prepend(createCard(data));
+}
+
+function clickImage(data) {
+  imagePopupImg.src = data.link;
+  imagePopupFigcapture.textContent = data.name;
+  togglePopup(imagePopup);
 }
 
 initialCards.forEach(function(data) {
@@ -119,8 +130,7 @@ function eraseError(popup) {
 editProfileBtn.addEventListener('click', () => {
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
-  editProfileSubmitBtn.removeAttribute('disabled');
-  editProfileSubmitBtn.classList.remove('popup__btn_disabled');
+  activeSubmitBtn(editProfileSubmitBtn);
   eraseError(editPopup);
   togglePopup(editPopup);
 });
@@ -128,8 +138,7 @@ editProfileBtn.addEventListener('click', () => {
 addCardBtn.addEventListener('click', () => {
   inputPlace.value = "";
   inputUrl.value = "";
-  addCardSubmitBtn.setAttribute('disabled', true);
-  addCardSubmitBtn.classList.add('popup__btn_disabled');
+  inactiveSubmitBtn(addCardSubmitBtn);
   eraseError(addPopup);
   togglePopup(addPopup);
 });
