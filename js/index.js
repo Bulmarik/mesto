@@ -28,50 +28,37 @@ const inputUrl = document.querySelector('.popup__input_type_url');
 const imagePopupImg = imagePopup.querySelector('.popup__image');
 const imagePopupFigcapture = imagePopup.querySelector('.popup__figcapture');
 
-const deleteCard = (evt) => {
-  evt.target.closest('.elements__item').remove();
-};
+const deleteCard = (evt) => evt.target.closest('.elements__item').remove();
 
-const likeCard = (evt) => {
-  evt.target.classList.toggle('elements__like-btn_active');
-};
-
-function createCard(data) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.elements__image');
-  const cardName = cardElement.querySelector('.elements__name');
-  const cardLikeBtn = cardElement.querySelector('.elements__like-btn');
-  const cardDelBtn = cardElement.querySelector('.elements__del-btn');
-  cardName.textContent = data.name;
-  cardImage.src = data.link;
-  cardImage.alt = data.name;
-  cardDelBtn.addEventListener('click', deleteCard);
-  cardLikeBtn.addEventListener('click', likeCard);
-  
-  // const clickImage = (evt) => {
-  //   evt.target.closest('elements__item');
-  //   imagePopupImg.src = data.link;
-  //   imagePopupFigcapture.textContent = data.name;
-  //   togglePopup(imagePopup);
-  // };
-
-  // cardImage.addEventListener('click', clickImage);
-
-  cardImage.addEventListener('click', () => {
-    clickImage(data)
-  });
-
-  return cardElement;
-}
-
-function renderCard(data) {
-  list.prepend(createCard(data));
-}
+const likeCard = (evt) => evt.target.classList.toggle('elements__like-btn_active');
 
 function clickImage(data) {
   imagePopupImg.src = data.link;
   imagePopupFigcapture.textContent = data.name;
   togglePopup(imagePopup);
+}
+
+class Place {
+  constructor(data) {
+    this._link = data.link
+    this._name = data.name
+  }
+
+  createCard(data) {
+    this._element = cardTemplate.cloneNode(true);
+    this._cardImage = this._element.querySelector('.elements__image');
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._element.querySelector('.elements__name').textContent = this._name;
+    this._cardImage.addEventListener('click', () => clickImage(data));
+    this._element.querySelector('.elements__like-btn').addEventListener('click', likeCard);
+    this._element.querySelector('.elements__del-btn').addEventListener('click', deleteCard);
+    return this._element;
+  }
+}
+
+function renderCard(data) {
+  list.prepend(new Place(data).createCard(data));
 }
 
 initialCards.forEach(function(data) {
@@ -109,22 +96,16 @@ function closePopupEsc(evt) {
 const setOverlayListener = () => {
   const overlayList = Array.from(document.querySelectorAll('.popup__overlay'));
   overlayList.forEach((overlay) => {
-    overlay.addEventListener('click', (evt) => {
-      togglePopup(evt.target.parentElement);
-    });
+    overlay.addEventListener('click', (evt) => togglePopup(evt.target.parentElement));
   });
 }
 setOverlayListener();
 
 function eraseError(popup) {
   const popupError = Array.from(popup.querySelectorAll('.popup__error'));
-  popupError.forEach((error) => {
-    error.classList.remove('popup__error_visible');
-  });
+  popupError.forEach((error) => error.classList.remove('popup__error_visible'));
   const popupInput = Array.from(popup.querySelectorAll('.popup__input'));
-  popupInput.forEach((input) => {
-    input.classList.remove('popup__input_type_error');
-  });
+  popupInput.forEach((input) => input.classList.remove('popup__input_type_error'));
 }
 
 editProfileBtn.addEventListener('click', () => {
@@ -143,17 +124,11 @@ addCardBtn.addEventListener('click', () => {
   togglePopup(addPopup);
 });
 
-editProfileCloseBtn.addEventListener('click', () => {
-  togglePopup(editPopup);
-});
+editProfileCloseBtn.addEventListener('click', () => togglePopup(editPopup));
 
-addCardCloseBtn.addEventListener('click', () => {
-  togglePopup(addPopup);
-});
+addCardCloseBtn.addEventListener('click', () => togglePopup(addPopup));
 
-imageCloseBtn.addEventListener('click', () => {
-  togglePopup(imagePopup);
-});
+imageCloseBtn.addEventListener('click', () => togglePopup(imagePopup));
 
 editForm.addEventListener('submit', editProfile);
 
