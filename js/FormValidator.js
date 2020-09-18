@@ -48,20 +48,27 @@ class FormValidator {
     const isFormValid = inputs.some((inputElement) => !inputElement.validity.valid);
     const btnSubmit = formElement.querySelector(this._object.submitButtonSelector);
     if (!isFormValid) {
-      this._activeSubmitBtn(btnSubmit);
+      this.activateSubmitBtn(btnSubmit);
     } else {
-      this._inactiveSubmitBtn(btnSubmit);
+      this.inactivateSubmitBtn(btnSubmit);
     }
   }
 
-  _activeSubmitBtn(button) {
+  activateSubmitBtn(button) {
     button.removeAttribute('disabled');
-    button.classList.remove('popup__btn_disabled');
+    button.classList.remove(this._object.inactiveButtonClass);
   }
   
-  _inactiveSubmitBtn(button) {
+  inactivateSubmitBtn(button) {
     button.setAttribute('disabled', true);
-    button.classList.add('popup__btn_disabled');
+    button.classList.add(this._object.inactiveButtonClass);
+  }
+
+  eraseError(popup) {
+    const popupError = Array.from(popup.querySelectorAll(this._object.errorSelector));
+    popupError.forEach((error) => error.classList.remove(this._object.errorClass));
+    const popupInput = Array.from(popup.querySelectorAll(this._object.inputSelector));
+    popupInput.forEach((input) => input.classList.remove(this._object.inputErrorClass));
   }
 }
 

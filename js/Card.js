@@ -1,35 +1,11 @@
+import {togglePopup} from './utils.js'
+
 const imagePopup = document.querySelector('.popup_type_image');
 const imageCloseBtn = imagePopup.querySelector('.popup__close-btn');
 const imagePopupPicture = imagePopup.querySelector('.popup__image');
 const imagePopupFigcapture = imagePopup.querySelector('.popup__figcapture');
 
-function openImagePopup() {
-  imagePopup.classList.add('popup_opened');
-  imageCloseBtn.addEventListener('click', closeImagePopup);
-  document.addEventListener('keydown', closeImagePopupEsc);
-  document.querySelectorAll('.popup__overlay').forEach((overlay) => {
-    overlay.addEventListener('click', closeImagePopupOverlay);
-  });
-}
-
-function closeImagePopup() {
-  imagePopup.classList.remove('popup_opened');
-  imageCloseBtn.removeEventListener('click', closeImagePopup);
-  document.removeEventListener('keydown', closeImagePopupEsc);
-  document.querySelectorAll('.popup__overlay').forEach((overlay) => {
-    overlay.removeEventListener('click', closeImagePopupOverlay);
-  });
-}
-
-function closeImagePopupEsc(evt) {
-  if(evt.key === "Escape") {
-    closeImagePopup();
-  }
-}
-
-function closeImagePopupOverlay() {
-  closeImagePopup();
-}
+imageCloseBtn.addEventListener('click', () => togglePopup(imagePopup));
 
 class Card {
   constructor(data, cardSelector) {
@@ -61,8 +37,8 @@ class Card {
 
   _clickImage() {
     imagePopupPicture.src = this._link;
-    imagePopupFigcapture.src = this._name;
-    openImagePopup();
+    imagePopupFigcapture.textContent = this._name;
+    togglePopup(imagePopup);
   }
 
   _likeCard() {
