@@ -1,11 +1,5 @@
-import {togglePopup} from './utils.js'
-
-const imagePopup = document.querySelector('.popup_type_image');
-const imageCloseBtn = imagePopup.querySelector('.popup__close-btn');
-const imagePopupPicture = imagePopup.querySelector('.popup__image');
-const imagePopupFigcapture = imagePopup.querySelector('.popup__figcapture');
-
-imageCloseBtn.addEventListener('click', () => togglePopup(imagePopup));
+import {imagePopup, imagePopupPicture, imagePopupFigcapture} from './constants.js';
+import {togglePopup} from './utils.js';
 
 class Card {
   constructor(data, cardSelector) {
@@ -37,6 +31,7 @@ class Card {
 
   _clickImage() {
     imagePopupPicture.src = this._link;
+    imagePopupPicture.alt = this._name;
     imagePopupFigcapture.textContent = this._name;
     togglePopup(imagePopup);
   }
