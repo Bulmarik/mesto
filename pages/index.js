@@ -8,6 +8,7 @@ import initialCards from '../utils/initial-cards.js';
 import {togglePopup} from '../utils/utils.js';
 import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 
 const addCardValidation = new FormValidator(validationConfig, addPopup);
 addCardValidation.enableValidation();
@@ -15,18 +16,24 @@ addCardValidation.enableValidation();
 const editProfileValidation = new FormValidator(validationConfig, editPopup);
 editProfileValidation.enableValidation();
 
+const openImagePopup = new PopupWithImage(imagePopup);
+openImagePopup.setEventListeners();
+
+const clickImage = (link, name) => {
+  openImagePopup.open(link, name);
+}
+
 const defaultCards = new Section({
   items: initialCards,
   renderer: ((item) => {
-    cards.prepend(new Card(item, templateCard).createCard());
+    renderCard(item, templateCard, clickImage);
   })
 }, cards)
-
 defaultCards.renderItems()
 
 
 function renderCard(data, cardSelector) {
-  cards.prepend(new Card(data, cardSelector).createCard());
+  cards.prepend(new Card(data, cardSelector, clickImage).createCard());
 }
 
 ////////////////////
