@@ -1,12 +1,12 @@
-function closePopupEsc(evt) {
-  if(evt.key === 'Escape') {
-    togglePopup(document.querySelector('.popup_opened'));
-  }
-}
+// function closePopupEsc(evt) {
+//   if(evt.key === 'Escape') {
+//     togglePopup(document.querySelector('.popup_opened'));
+//   }
+// }
 
-function closePopupOverlay(evt) {
-  togglePopup(evt.target.parentElement);
-}
+// function closePopupOverlay(evt) {
+//   togglePopup(evt.target.parentElement);
+// }
 
 export function togglePopup(popup) {
   popup.classList.toggle('popup_opened');

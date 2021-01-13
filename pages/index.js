@@ -7,6 +7,7 @@ import {validationConfig, addPopup, addForm, addCardBtn, addCardSubmitBtn, addCa
 import initialCards from '../utils/initial-cards.js';
 import {togglePopup} from '../utils/utils.js';
 import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
 
 const addCardValidation = new FormValidator(validationConfig, addPopup);
 addCardValidation.enableValidation();
@@ -61,7 +62,10 @@ addCardBtn.addEventListener('click', () => {
   inputUrl.value = "";
   addCardValidation.inactivateSubmitBtn(addCardSubmitBtn);
   addCardValidation.eraseError(addPopup);
-  togglePopup(addPopup);
+  // togglePopup(addPopup);
+  const openAddPopup = new Popup(addPopup);
+  openAddPopup.open();
+  openAddPopup.setEventListeners();
 });
 
 editProfileBtn.addEventListener('click', () => {
@@ -69,14 +73,17 @@ editProfileBtn.addEventListener('click', () => {
   inputDescription.value = profileDescription.textContent;
   editProfileValidation.activateSubmitBtn(editProfileSubmitBtn);
   editProfileValidation.eraseError(editPopup);
-  togglePopup(editPopup);
+  // togglePopup(editPopup);
+  const openEditPopup = new Popup(editPopup);
+  openEditPopup.open();
+  openEditPopup.setEventListeners();
 });
 
-addCardCloseBtn.addEventListener('click', () => togglePopup(addPopup));
+// addCardCloseBtn.addEventListener('click', () => togglePopup(addPopup));
 
-editProfileCloseBtn.addEventListener('click', () => togglePopup(editPopup));
+// editProfileCloseBtn.addEventListener('click', () => togglePopup(editPopup));
 
-imageCloseBtn.addEventListener('click', () => togglePopup(imagePopup));
+// imageCloseBtn.addEventListener('click', () => togglePopup(imagePopup));
 
 addForm.addEventListener('submit', addCard);
 
