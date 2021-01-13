@@ -1,7 +1,7 @@
 // import {imagePopup, imagePopupPicture, imagePopupFigcapture} from '../utils/constants.js';
 // import {togglePopup} from '../utils/utils.js';
 
-class Card {
+export default class Card {
   constructor(data, cardSelector, clickImage) {
     this._link = data.link;
     this._name = data.name;
@@ -50,5 +50,3 @@ class Card {
     this._element.querySelector('.elements__del-btn').closest('.elements__item').remove();
   }
 }
-
-export default Card;
