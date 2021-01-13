@@ -22,14 +22,14 @@ class FormValidator {
     });
   }
 
-  _hideInputError(formElement, inputElement, validationConfig) {
+  _hideInputError(formElement, inputElement) {
     const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
     inputElement.classList.remove(this._validationConfig.inputErrorClass);
     errorElement.textContent = '';
     errorElement.classList.remove(this._validationConfig.errorClass);
   }
 
-  _showInputError(formElement, inputElement, validationConfig) {
+  _showInputError(formElement, inputElement) {
     const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
     inputElement.classList.add(this._validationConfig.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage; 
@@ -44,7 +44,7 @@ class FormValidator {
     }
   }
 
-  _toggleButtonState(formElement, inputs, validationConfig) {
+  _toggleButtonState(formElement, inputs) {
     const isFormValid = inputs.some((inputElement) => !inputElement.validity.valid);
     const btnSubmit = formElement.querySelector(this._validationConfig.submitButtonSelector);
     if (!isFormValid) {

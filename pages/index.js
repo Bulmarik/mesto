@@ -1,11 +1,12 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
 import {validationConfig, addPopup, addForm, addCardBtn, addCardSubmitBtn, addCardCloseBtn,
         editPopup, editForm, editProfileBtn, editProfileSubmitBtn, editProfileCloseBtn,
         imagePopup, imageCloseBtn, cards, templateCard, profileName, profileDescription,
-        inputName, inputDescription, inputPlace, inputUrl} from './constants.js';
-import initialCards from './initial-cards.js';
-import {togglePopup} from './utils.js';
+        inputName, inputDescription, inputPlace, inputUrl} from '../utils/constants.js';
+import initialCards from '../utils/initial-cards.js';
+import {togglePopup} from '../utils/utils.js';
+import Section from '../components/Section.js';
 
 const addCardValidation = new FormValidator(validationConfig, addPopup);
 addCardValidation.enableValidation();
@@ -13,13 +14,34 @@ addCardValidation.enableValidation();
 const editProfileValidation = new FormValidator(validationConfig, editPopup);
 editProfileValidation.enableValidation();
 
+const defaultCards = new Section({
+  items: initialCards,
+  renderer: ((item) => {
+    cards.prepend(new Card(item, templateCard).createCard());
+  })
+}, cards)
+
+defaultCards.renderItems()
+
+
 function renderCard(data, cardSelector) {
   cards.prepend(new Card(data, cardSelector).createCard());
 }
 
-initialCards.forEach(function(data) {
-  renderCard(data, templateCard);
-});
+////////////////////
+// function renderCard(data, cardSelector) {
+//   cards.prepend(new Card(data, cardSelector).createCard());
+// }
+
+// function renderCard(data, cardSelector) {
+//   const card = new Card(data, cardSelector).createCard();
+//   cards.prepend(card);
+// }
+
+// initialCards.forEach(function(data) {
+//   renderCard(data, templateCard);
+// });
+///////////////////
 
 function addCard(evt) {
   evt.preventDefault();

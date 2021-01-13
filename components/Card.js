@@ -1,5 +1,5 @@
-import {imagePopup, imagePopupPicture, imagePopupFigcapture} from './constants.js';
-import {togglePopup} from './utils.js';
+import {imagePopup, imagePopupPicture, imagePopupFigcapture} from '../utils/constants.js';
+import {togglePopup} from '../utils/utils.js';
 
 class Card {
   constructor(data, cardSelector) {
