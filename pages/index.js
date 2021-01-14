@@ -10,6 +10,7 @@ import Section from '../components/Section.js';
 import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 const addCardValidation = new FormValidator(validationConfig, addPopup);
 addCardValidation.enableValidation();
@@ -52,6 +53,11 @@ function renderCard(data, cardSelector) {
 // });
 ///////////////////
 
+const userInfo = new UserInfo({
+  userName: profileName,
+  userDescription: profileDescription
+})
+
 
 const addCard = new PopupWithForm(addPopup, () => {
   renderCard({name: inputPlace.value, link: inputUrl.value}, templateCard);
@@ -67,16 +73,20 @@ addCard.setEventListeners();
 // }
 //////////////////
 
-
+const editProfile = new PopupWithForm(editPopup, () => {
+  userInfo.setUserInfo(inputName.value, inputDescription.value)
+  editProfile.close();
+})
+editProfile.setEventListeners();
 
 
 ////////////
-function editProfile(evt) {
-  evt.preventDefault();
-  profileName.textContent = inputName.value;
-  profileDescription.textContent = inputDescription.value;
-  togglePopup(editPopup); 
-}
+// function editProfile(evt) {
+//   evt.preventDefault();
+//   profileName.textContent = inputName.value;
+//   profileDescription.textContent = inputDescription.value;
+//   togglePopup(editPopup); 
+// }
 /////////////
 
 addCardBtn.addEventListener('click', () => {
@@ -92,14 +102,18 @@ addCardBtn.addEventListener('click', () => {
 });
 
 editProfileBtn.addEventListener('click', () => {
-  inputName.value = profileName.textContent;
-  inputDescription.value = profileDescription.textContent;
+  // inputName.value = profileName.textContent;
+  // inputDescription.value = profileDescription.textContent;
   editProfileValidation.activateSubmitBtn(editProfileSubmitBtn);
   editProfileValidation.eraseError(editPopup);
+  editProfile.open();
+  inputName.value = userInfo.getUserInfo().name;
+  inputDescription.value = userInfo.getUserInfo().description;
+  
   // togglePopup(editPopup);
-  const openEditPopup = new Popup(editPopup);
-  openEditPopup.open();
-  openEditPopup.setEventListeners();
+  // const openEditPopup = new Popup(editPopup);
+  // openEditPopup.open();
+  // openEditPopup.setEventListeners();
 });
 
 ////////////
