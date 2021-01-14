@@ -1,13 +1,11 @@
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {validationConfig, addPopup, addForm, addCardBtn, addCardSubmitBtn, addCardCloseBtn,
-        editPopup, editForm, editProfileBtn, editProfileSubmitBtn, editProfileCloseBtn,
-        imagePopup, imageCloseBtn, cards, templateCard, profileName, profileDescription,
+import {validationConfig, addPopup, addForm, addCardBtn, addCardSubmitBtn,
+        editPopup, editForm, editProfileBtn, editProfileSubmitBtn,
+        imagePopup, cards, templateCard, profileName, profileDescription,
         inputName, inputDescription, inputPlace, inputUrl} from '../utils/constants.js';
 import initialCards from '../utils/initial-cards.js';
-// import {togglePopup} from '../utils/utils.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -21,43 +19,27 @@ editProfileValidation.enableValidation();
 const openImagePopup = new PopupWithImage(imagePopup);
 openImagePopup.setEventListeners();
 
-const clickImage = (link, name) => {
+const handleCardClick = (link, name) => {
   openImagePopup.open(link, name);
 }
 
 const defaultCards = new Section({
   items: initialCards,
   renderer: ((item) => {
-    renderCard(item, templateCard, clickImage);
+    renderCard(item, templateCard, handleCardClick);
   })
 }, cards)
 defaultCards.renderItems()
 
 
 function renderCard(data, cardSelector) {
-  cards.prepend(new Card(data, cardSelector, clickImage).createCard());
+  cards.prepend(new Card(data, cardSelector, handleCardClick).createCard());
 }
-
-////////////////////
-// function renderCard(data, cardSelector) {
-//   cards.prepend(new Card(data, cardSelector).createCard());
-// }
-
-// function renderCard(data, cardSelector) {
-//   const card = new Card(data, cardSelector).createCard();
-//   cards.prepend(card);
-// }
-
-// initialCards.forEach(function(data) {
-//   renderCard(data, templateCard);
-// });
-///////////////////
 
 const userInfo = new UserInfo({
   userName: profileName,
   userDescription: profileDescription
 })
-
 
 const addCard = new PopupWithForm(addPopup, () => {
   renderCard({name: inputPlace.value, link: inputUrl.value}, templateCard);
@@ -65,64 +47,25 @@ const addCard = new PopupWithForm(addPopup, () => {
 })
 addCard.setEventListeners();
 
-/////////////////
-// function addCard(evt) {
-//   evt.preventDefault();
-//   renderCard({name: inputPlace.value, link: inputUrl.value}, templateCard);
-//   togglePopup(addPopup);
-// }
-//////////////////
-
 const editProfile = new PopupWithForm(editPopup, () => {
   userInfo.setUserInfo(inputName.value, inputDescription.value)
   editProfile.close();
 })
 editProfile.setEventListeners();
 
-
-////////////
-// function editProfile(evt) {
-//   evt.preventDefault();
-//   profileName.textContent = inputName.value;
-//   profileDescription.textContent = inputDescription.value;
-//   togglePopup(editPopup); 
-// }
-/////////////
-
 addCardBtn.addEventListener('click', () => {
-  // inputPlace.value = "";
-  // inputUrl.value = "";
   addCardValidation.inactivateSubmitBtn(addCardSubmitBtn);
   addCardValidation.eraseError(addPopup);
   addCard.open();
-  // togglePopup(addPopup);
-  // const openAddPopup = new Popup(addPopup);
-  // openAddPopup.open();
-  // openAddPopup.setEventListeners();
 });
 
 editProfileBtn.addEventListener('click', () => {
-  // inputName.value = profileName.textContent;
-  // inputDescription.value = profileDescription.textContent;
   editProfileValidation.activateSubmitBtn(editProfileSubmitBtn);
   editProfileValidation.eraseError(editPopup);
   editProfile.open();
   inputName.value = userInfo.getUserInfo().name;
   inputDescription.value = userInfo.getUserInfo().description;
-  
-  // togglePopup(editPopup);
-  // const openEditPopup = new Popup(editPopup);
-  // openEditPopup.open();
-  // openEditPopup.setEventListeners();
 });
-
-////////////
-// addCardCloseBtn.addEventListener('click', () => togglePopup(addPopup));
-//
-// editProfileCloseBtn.addEventListener('click', () => togglePopup(editPopup));
-//
-// imageCloseBtn.addEventListener('click', () => togglePopup(imagePopup));
-/////////////
 
 addForm.addEventListener('submit', addCard);
 
