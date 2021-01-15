@@ -24,17 +24,15 @@ const handleCardClick = (link, name) => {
   openImagePopup.open(link, name);
 }
 
-const defaultCards = new Section({
-  items: initialCards,
-  renderer: ((item) => {
-    renderCard(item, templateCard, handleCardClick);
+const cardsSection = new Section({
+    renderer: ((item) => {
+    renderCard(item, templateCard);
   })
 }, cards)
-defaultCards.renderItems()
-
+cardsSection.renderItems(initialCards)
 
 function renderCard(data, cardSelector) {
-  cards.prepend(new Card(data, cardSelector, handleCardClick).createCard());
+  cardsSection.addItem(new Card(data, cardSelector, handleCardClick).createCard());
 }
 
 const userInfo = new UserInfo({

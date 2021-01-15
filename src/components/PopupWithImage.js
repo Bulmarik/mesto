@@ -13,8 +13,4 @@ export default class PopupWithImage extends Popup {
     this._popupImageFigcapture.alt = name;
     super.open();
   }
-
-  close() {
-    super.close();
-  }
 }
