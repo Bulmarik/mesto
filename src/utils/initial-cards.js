@@ -1,27 +1,34 @@
+import stadium from '../images/medeu_stadium.jpg';
+import step from '../images/842_steps.jpg';
+import shimbulak from '../images/shimbulak.jpg';
+import funicular from '../images/funicular_to_shymbulak.jpg';
+import almarasan from '../images/almarasan_gorge.jpg';
+import road from '../images/road_to_the_alatau.jpg';
+
 const initialCards = [
   {
     name: 'Cтадион Медеo',
-    link: './images/medeu_stadium.jpg'
+    link: stadium
   },
   {
     name: '842 ступени',
-    link: './images/842_steps.jpg'
+    link: step
   },
   {
     name: 'Чимбулак',
-    link: './images/shimbulak.jpg'
+    link: shimbulak
   },
   {
     name: 'Канатная дорога',
-    link: './images/funicular_to_shymbulak.jpg'
+    link: funicular
   },
   {
     name: 'Ущелье Алмарасан',
-    link: './images/almarasan_gorge.jpg'
+    link: almarasan
   },
   {
     name: 'Дорога к Алатау',
-    link: './images/road_to_the_alatau.jpg'
+    link: road
   }
 ];
 

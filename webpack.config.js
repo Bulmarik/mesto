@@ -1,11 +1,14 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/pages/index.js',
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: "/",
   },
 
   module: {
@@ -21,17 +24,41 @@ module.exports = {
         }
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpg|gif|svg|woff|woff2)$/i,
         use: [
           {
             loader: 'file-loader',
           },
         ],
       },
+      {
+        test: /\.html$/i,
+        use: [
+          {
+            loader: 'html-loader',
+          },
+        ],
+      },
+      {
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+            },
+          },
+          "postcss-loader",
+        ],
+      },
     ]
   },
 
   plugins: [new HtmlWebpackPlugin({
-    template: './src/index.html'
-  })],
+      template: './src/index.html'
+  }),
+  new CleanWebpackPlugin(),
+  new MiniCssExtractPlugin(),
+  ],
 };
