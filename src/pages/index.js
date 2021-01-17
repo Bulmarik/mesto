@@ -5,11 +5,31 @@ import {validationConfig, addPopup, addForm, addCardBtn, addCardSubmitBtn,
         editPopup, editForm, editProfileBtn, editProfileSubmitBtn,
         imagePopup, cards, templateCard, profileName, profileDescription,
         inputName, inputDescription, inputPlace, inputUrl} from '../utils/constants.js';
-import initialCards from '../utils/initial-cards.js';
+// import initialCards from '../utils/initial-cards.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
+
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-19',
+  headers: {
+    authorization: '43a7264e-630c-455f-a34f-0f66d3201253',
+    'Content-Type': 'application/json'
+  }
+}); 
+
+Promise.all([api.getInitialCards(), api.getUser()])
+  .then(([cards, user]) => {
+    const card = cards.map(({name, link}) => ({name, link}));
+    cardsSection.renderItems(card)
+    userInfo.setUserInfo(user.name, user.about)
+  })
+  .catch((res) => {
+    console.log(`Ошибка: ${res.status}`);
+  })
 
 const addCardValidation = new FormValidator(validationConfig, addPopup);
 addCardValidation.enableValidation();
@@ -25,11 +45,11 @@ const handleCardClick = (link, name) => {
 }
 
 const cardsSection = new Section({
-    renderer: ((item) => {
+  renderer: ((item) => {
     renderCard(item, templateCard);
   })
 }, cards)
-cardsSection.renderItems(initialCards)
+// cardsSection.renderItems(initialCards)
 
 function renderCard(data, cardSelector) {
   cardsSection.addItem(new Card(data, cardSelector, handleCardClick).createCard());
