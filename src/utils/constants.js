@@ -8,22 +8,38 @@ export const validationConfig = {
   errorClass: 'popup__error_visible'
 };
 
+export const avatarPopup = document.querySelector('.popup_type_edit-avatar');
+const avatarForm = avatarPopup.querySelector('.popup__form');
+export const editAvatarBtn = document.querySelector('.profile__avatar');
+export const editAvatarSubmitBtn = avatarForm.querySelector('.popup__btn');
+export const profileImage = document.querySelector('.profile__image');
+export const inputAvatarUrl = document.querySelector('.popup__input_type_avatar-url');
+
 export const addPopup = document.querySelector('.popup_type_add-card');
-export const addForm = addPopup.querySelector('.popup__form');
+const addForm = addPopup.querySelector('.popup__form');
 export const addCardBtn = document.querySelector('.profile__add-btn');
 export const addCardSubmitBtn = addForm.querySelector('.popup__btn');
+export const inputPlace = document.querySelector('.popup__input_type_place');
+export const inputUrl = document.querySelector('.popup__input_type_url');
+
 export const editPopup = document.querySelector('.popup_type_edit-profile');
-export const editForm = editPopup.querySelector('.popup__form');
+const editForm = editPopup.querySelector('.popup__form');
 export const editProfileBtn = document.querySelector('.profile__edit-btn');
 export const editProfileSubmitBtn = editForm.querySelector('.popup__btn');
-export const imagePopup = document.querySelector('.popup_type_image');
-export const imagePopupPicture = imagePopup.querySelector('.popup__image');
-export const imagePopupFigcapture = imagePopup.querySelector('.popup__figcapture');
-export const cards = document.querySelector('.elements__items');
-export const templateCard = '.template-card';
 export const profileName = document.querySelector('.profile__name');
 export const profileDescription = document.querySelector('.profile__description');
 export const inputName = document.querySelector('.popup__input_type_name');
 export const inputDescription = document.querySelector('.popup__input_type_description');
-export const inputPlace = document.querySelector('.popup__input_type_place');
-export const inputUrl = document.querySelector('.popup__input_type_url');
+
+export const imagePopup = document.querySelector('.popup_type_image');
+export const imagePopupPicture = imagePopup.querySelector('.popup__image');
+export const imagePopupFigcapture = imagePopup.querySelector('.popup__figcapture');
+
+export const cards = document.querySelector('.elements__items');
+export const templateCard = '.template-card';
+
+
+
+// export const deletePopup = document.querySelector('.popup_type_delete');
+// const deleteForm = deletePopup.querySelector('.popup__form');
+// export const deleteSubmitBtn = deleteForm.querySelector('.popup__btn');

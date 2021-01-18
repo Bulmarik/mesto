@@ -1,11 +1,11 @@
 import './index.css';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {validationConfig, addPopup, addForm, addCardBtn, addCardSubmitBtn,
-        editPopup, editForm, editProfileBtn, editProfileSubmitBtn,
-        imagePopup, cards, templateCard, profileName, profileDescription,
-        inputName, inputDescription, inputPlace, inputUrl} from '../utils/constants.js';
-// import initialCards from '../utils/initial-cards.js';
+import {validationConfig, avatarPopup, editAvatarBtn, editAvatarSubmitBtn, profileImage,
+        inputAvatarUrl, addPopup, addForm, addCardBtn, addCardSubmitBtn,
+        editPopup, editForm, editProfileBtn, editProfileSubmitBtn, imagePopup,
+        cards, templateCard, profileName, profileDescription,
+        inputName, inputDescription, inputPlace, inputUrl, deletePopup, deleteSubmitBtn} from '../utils/constants.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -13,6 +13,7 @@ import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
 
+// API
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-19',
   headers: {
@@ -21,15 +22,23 @@ const api = new Api({
   }
 }); 
 
+
+// Промис
 Promise.all([api.getInitialCards(), api.getUser()])
-  .then(([cards, user]) => {
-    const card = cards.map(({name, link}) => ({name, link}));
-    cardsSection.renderItems(card)
-    userInfo.setUserInfo(user.name, user.about)
-  })
-  .catch((res) => {
-    console.log(`Ошибка: ${res.status}`);
-  })
+.then(([cards, user]) => {
+  const card = cards.map(({name, link}) => ({name, link}));
+  cardsSection.renderItems(card.reverse());
+  userInfo.setUserInfo(user.name, user.about);
+  profileImage.src = user.avatar;
+})
+.catch((res) => {
+  console.log(`Ошибка: ${res.status}`);
+})
+
+
+// Валидация
+const editAvatarValidation = new FormValidator(validationConfig, avatarPopup);
+editAvatarValidation.enableValidation();
 
 const addCardValidation = new FormValidator(validationConfig, addPopup);
 addCardValidation.enableValidation();
@@ -37,6 +46,8 @@ addCardValidation.enableValidation();
 const editProfileValidation = new FormValidator(validationConfig, editPopup);
 editProfileValidation.enableValidation();
 
+
+// Просмотр картинок
 const openImagePopup = new PopupWithImage(imagePopup);
 openImagePopup.setEventListeners();
 
@@ -44,39 +55,46 @@ const handleCardClick = (link, name) => {
   openImagePopup.open(link, name);
 }
 
+
+// Рендер карт
 const cardsSection = new Section({
   renderer: ((item) => {
     renderCard(item, templateCard);
   })
 }, cards)
-// cardsSection.renderItems(initialCards)
 
 function renderCard(data, cardSelector) {
   cardsSection.addItem(new Card(data, cardSelector, handleCardClick).createCard());
 }
 
+
+// Аватарка
+const editAvatar = new PopupWithForm(avatarPopup, () => {
+  api.setAvatar(inputAvatarUrl.value);
+  profileImage.src = inputAvatarUrl.value;
+  editAvatar.close();
+})
+editAvatar.setEventListeners();
+
+editAvatarBtn.addEventListener('click', () => {
+  editAvatarValidation.inactivateSubmitBtn(editAvatarSubmitBtn);
+  editAvatarValidation.eraseError(avatarPopup);
+  editAvatar.open();
+});
+
+
+// Юзер
 const userInfo = new UserInfo({
   userName: profileName,
   userDescription: profileDescription
 })
 
-const addCard = new PopupWithForm(addPopup, () => {
-  renderCard({name: inputPlace.value, link: inputUrl.value}, templateCard);
-  addCard.close();
-})
-addCard.setEventListeners();
-
 const editProfile = new PopupWithForm(editPopup, () => {
-  userInfo.setUserInfo(inputName.value, inputDescription.value)
+  userInfo.setUserInfo(inputName.value, inputDescription.value);
+  api.setUser(inputName.value, inputDescription.value);
   editProfile.close();
 })
 editProfile.setEventListeners();
-
-addCardBtn.addEventListener('click', () => {
-  addCardValidation.inactivateSubmitBtn(addCardSubmitBtn);
-  addCardValidation.eraseError(addPopup);
-  addCard.open();
-});
 
 editProfileBtn.addEventListener('click', () => {
   editProfileValidation.activateSubmitBtn(editProfileSubmitBtn);
@@ -86,6 +104,19 @@ editProfileBtn.addEventListener('click', () => {
   inputDescription.value = userInfo.getUserInfo().description;
 });
 
-addForm.addEventListener('submit', addCard);
 
-editForm.addEventListener('submit', editProfile);
+// Добавление карточек
+const addCard = new PopupWithForm(addPopup, () => {
+  api.addNewCard({name: inputPlace.value, link: inputUrl.value})
+    .then((data) => {
+      renderCard({name: data.name, link: data.link}, templateCard)
+    })
+  addCard.close();
+})
+addCard.setEventListeners();
+
+addCardBtn.addEventListener('click', () => {
+  addCardValidation.inactivateSubmitBtn(addCardSubmitBtn);
+  addCardValidation.eraseError(addPopup);
+  addCard.open();
+});

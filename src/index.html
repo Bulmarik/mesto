@@ -12,7 +12,9 @@
   <main class="content">
     <section class="profile">
       <div class="profile__content">
-        <img class="profile__avatar" src="./images/image.jpg" alt="Аватарка">
+        <div class="profile__avatar">
+          <img class="profile__image" src="#" alt="Аватарка">
+        </div>
         <div class="profile__info">
           <div class="profile__user">
             <h1 class="profile__name">Булатов Марат</h1>
@@ -30,6 +32,18 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
+  <div class="popup popup_type_edit-avatar">
+    <div class="popup__overlay"></div>
+    <div class="popup__container">
+      <button class="popup__close-btn" type="button"></button>
+      <form class="popup__form" id="avatar-form" name="avatar-form" action="#" method="post" novalidate>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <input class="popup__input popup__input_type_avatar-url" name="url" placeholder="Ссылка на аватар" type="url" required>
+        <span class="popup__error" id="url-error"></span>
+        <button class="popup__btn" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
   <div class="popup popup_type_edit-profile">
     <div class="popup__overlay"></div>
     <div class="popup__container">
@@ -58,6 +72,18 @@
       </form>
     </div>
   </div>
+
+  <!-- <div class="popup popup_type_delete">
+    <div class="popup__overlay"></div>
+    <div class="popup__container">
+      <button class="popup__close-btn" type="button"></button>
+      <form class="popup__form" id="delete-form" name="popup-form" action="#" method="post">
+        <h3 class="popup__title">Вы уверены?</h3>
+        <button class="popup__btn" type="submit">Да</button>
+      </form>
+    </div>
+  </div> -->
+
   <div class="popup popup_type_image">
     <div class="popup__overlay"></div>
     <div class="popup__container popup__container_type_image">
