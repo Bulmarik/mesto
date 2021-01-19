@@ -1,4 +1,4 @@
-.popup__btn_disabled {
+.popup__submit-btn_disabled {
     border: 1px solid #000000;
     background-color: #E5E5E5;
     color: #000000;
@@ -6,6 +6,6 @@
     transition: none;
 }
 
-.popup__btn_disabled:hover {
+.popup__submit-btn_disabled:hover {
     opacity: 0.2;
 }

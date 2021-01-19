@@ -34,7 +34,7 @@ export default class Api {
         about: description
       })
     })
-    // .then(this._handleResponse)
+    .then(this._handleResponse)
   }
 
   setAvatar(avatar) {
@@ -45,7 +45,7 @@ export default class Api {
         avatar: avatar
       })
     })
-    // .then(this._handleResponse)
+    .then(this._handleResponse)
   }
 
   addNewCard(item) {
@@ -60,14 +60,14 @@ export default class Api {
     .then(this._handleResponse)
   }
 
-  // deleteCard(userId) {
-  //   return fetch(`${this._baseUrl}/cards/${userId}`, {
-  //     method: 'DELETE',
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       _id: userId,
-  //     })
-  //   })
-  //   .then(this._handleResponse)
-  // }
+  deleteCard(userId) {
+    return fetch(`${this._baseUrl}/cards/${userId}`, {
+      method: 'DELETE',
+      headers: this._headers,
+      body: JSON.stringify({
+        _id: userId,
+      })
+    })
+    .then(this._handleResponse)
+  }
 }

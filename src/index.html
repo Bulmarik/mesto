@@ -40,7 +40,7 @@
         <h3 class="popup__title">Обновить аватар</h3>
         <input class="popup__input popup__input_type_avatar-url" name="url" placeholder="Ссылка на аватар" type="url" required>
         <span class="popup__error" id="url-error"></span>
-        <button class="popup__btn" type="submit">Сохранить</button>
+        <button class="popup__submit-btn" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
@@ -54,7 +54,7 @@
         <span class="popup__error" id="name-error"></span>
         <input class="popup__input popup__input_type_description" name="description" type="text" placeholder="О себе" minlength="2" maxlength="200" autocomplete="off" required>
         <span class="popup__error" id="description-error"></span>
-        <button class="popup__btn" type="submit">Сохранить</button>
+        <button class="popup__submit-btn" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
@@ -68,21 +68,21 @@
         <span class="popup__error" id="place-error"></span>
         <input class="popup__input popup__input_type_url" name="url" placeholder="Ссылка на картинку" type="url" required>
         <span class="popup__error" id="url-error"></span>
-        <button class="popup__btn" type="submit">Создать</button>
+        <button class="popup__submit-btn" type="submit">Создать</button>
       </form>
     </div>
   </div>
 
-  <!-- <div class="popup popup_type_delete">
+  <div class="popup popup_type_delete">
     <div class="popup__overlay"></div>
     <div class="popup__container">
       <button class="popup__close-btn" type="button"></button>
       <form class="popup__form" id="delete-form" name="popup-form" action="#" method="post">
         <h3 class="popup__title">Вы уверены?</h3>
-        <button class="popup__btn" type="submit">Да</button>
+        <button class="popup__submit-btn" type="submit">Да</button>
       </form>
     </div>
-  </div> -->
+  </div>
 
   <div class="popup popup_type_image">
     <div class="popup__overlay"></div>
@@ -94,7 +94,7 @@
       </figure>
     </div>
   </div>
-  <template class="template-card">
+  <template class="template-card" id="">
     <li class="elements__item">
       <button class="elements__del-btn" type="button"></button>
       <img class="elements__image" src="#" alt="">
