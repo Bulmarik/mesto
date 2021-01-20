@@ -60,12 +60,12 @@ export default class Api {
     .then(this._handleResponse)
   }
 
-  deleteCard(userId) {
-    return fetch(`${this._baseUrl}/cards/${userId}`, {
+  delCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
       body: JSON.stringify({
-        _id: userId,
+        _id: cardId,
       })
     })
     .then(this._handleResponse)

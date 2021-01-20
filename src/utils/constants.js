@@ -37,7 +37,6 @@ export const imagePopupFigcapture = imagePopup.querySelector('.popup__figcapture
 
 export const cards = document.querySelector('.elements__items');
 export const templateCard = '.template-card';
-export const userId = document.querySelector('.template-card');
 
 export const deletePopup = document.querySelector('.popup_type_delete');
 const deleteForm = deletePopup.querySelector('.popup__form');

@@ -5,7 +5,6 @@ import {validationConfig, avatarPopup, editAvatarBtn, editAvatarSubmitBtn, profi
         inputAvatarUrl, addPopup, addForm, addCardBtn, addCardSubmitBtn,
         editPopup, editForm, editProfileBtn, editProfileSubmitBtn, imagePopup,
         cards, templateCard, profileName, profileDescription, 
-        // userId,
         inputName, inputDescription, inputPlace, inputUrl, deletePopup, deleteSubmitBtn} from '../utils/constants.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -24,33 +23,25 @@ const api = new Api({
 });
 
 
-let userId = {};
+let userId;
 function getUserId(user) {
-  // console.log(user);
-  userId = user;
-  return userId
+  userId = user._id;
 };
 
 
-
-
-
-// let userId = [];
-console.log(userId);
 // Промис
-Promise.all([api.getInitialCards(), api.getUser()])
-.then(([cards, user]) => {
-  const card = cards.map(({name, link, owner, _id, likes}) => ({name, link, owner, _id, likes}));
-  cardsSection.renderItems(card.reverse());
-  userInfo.setUserInfo(user.name, user.about);
-  profileImage.src = user.avatar;
-  getUserId(user);
-  // userId = user._id;
-  // console.log(userId.id);
-})
-// .catch((res) => {
-//   console.log(`Ошибка: ${res.status}`);
-// })
+Promise.all([api.getUser(), api.getInitialCards()])
+  .then(([user, cards]) => {
+    getUserId(user);
+    userInfo.setUserInfo(user.name, user.about);
+    profileImage.src = user.avatar;
+    const card = cards.map((data) => (data));
+    cardsSection.renderItems(card.reverse());
+  })
+  .catch((res) => {
+    console.log(`Ошибка: ${res.status}`);
+  }
+)
 
 
 // Валидация
@@ -76,22 +67,15 @@ const handleCardClick = (link, name) => {
 // Рендер карт
 const cardsSection = new Section({
   renderer: ((item) => {
-    renderCard(item, templateCard);
+    renderCard(item);
   })
 }, cards)
 
-function renderCard(data, cardSelector) {
-  const newCard = new Card(data, cardSelector, handleCardClick, userId);
+function renderCard(data) {
+  const newCard = new Card(data, templateCard, handleCardClick, userId, deleteCard, deleteCardId);
   const createCard = newCard.createCard();
   cardsSection.addItem(createCard);
 }
-
-
-
-
-// function renderCard(data, cardSelector) {
-//   cardsSection.addItem(new Card(data, cardSelector, handleCardClick).createCard());
-// }
 
 
 // Аватарка
@@ -132,10 +116,14 @@ editProfileBtn.addEventListener('click', () => {
 
 
 // Добавление карточек
-const addCard = new PopupWithForm(addPopup,
-  () => {api.addNewCard({name: inputPlace.value, link: inputUrl.value}).then((data) => {renderCard({name: data.name, link: data.link}, templateCard, userId)});
+const addCard = new PopupWithForm(addPopup, () => {
+  api.addNewCard({name: inputPlace.value, link: inputUrl.value})
+  .then((data) => {
+    renderCard(data)
+  });
   addCard.close();
-})
+}
+)
 addCard.setEventListeners();
 
 addCardBtn.addEventListener('click', () => {
@@ -144,12 +132,17 @@ addCardBtn.addEventListener('click', () => {
   addCard.open();
 });
 
+
 // Удаление карточек
-// const deleteCard = new PopupWithForm(deletePopup);
-// deleteCard.setEventListeners();
+let CardId;
+function deleteCardId(id) {
+  CardId = id;
+  return CardId;
+}
 
-// ???.addEventListener('click', () => {
-//   deleteCard.open();
-// });
-
-// function isOwner ()
+const deleteCard = new PopupWithForm(deletePopup, () => {
+  api.delCard(CardId);
+  // deleteCard.removeCard();
+  deleteCard.close();
+})
+deleteCard.setEventListeners();
