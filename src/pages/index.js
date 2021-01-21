@@ -1,11 +1,12 @@
 import './index.css';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
-import {validationConfig, avatarPopup, editAvatarBtn, editAvatarSubmitBtn, profileImage,
-        inputAvatarUrl, addPopup, addForm, addCardBtn, addCardSubmitBtn,
-        editPopup, editForm, editProfileBtn, editProfileSubmitBtn, imagePopup,
-        cards, templateCard, profileName, profileDescription, 
-        inputName, inputDescription, inputPlace, inputUrl, deletePopup, deleteSubmitBtn} from '../utils/constants.js';
+import {avatarPopup, editAvatarBtn, editAvatarSubmitBtn, profileImage, inputAvatarUrl,
+        addPopup, addCardBtn, addCardSubmitBtn, inputPlace, inputUrl,
+        editPopup, editProfileBtn, editProfileSubmitBtn,
+        profileName, profileDescription, inputName, inputDescription,
+        imagePopup, deletePopup, templateCard, cards, 
+        validationConfig} from '../utils/constants.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -82,6 +83,7 @@ function renderCard(data) {
 const editAvatar = new PopupWithForm(avatarPopup, () => {
   api.setAvatar(inputAvatarUrl.value);
   profileImage.src = inputAvatarUrl.value;
+  editAvatar.uxAdd()
   editAvatar.close();
 })
 editAvatar.setEventListeners();
@@ -89,6 +91,7 @@ editAvatar.setEventListeners();
 editAvatarBtn.addEventListener('click', () => {
   editAvatarValidation.inactivateSubmitBtn(editAvatarSubmitBtn);
   editAvatarValidation.eraseError(avatarPopup);
+  editAvatar.uxRemove();
   editAvatar.open();
 });
 
@@ -102,6 +105,7 @@ const userInfo = new UserInfo({
 const editProfile = new PopupWithForm(editPopup, () => {
   userInfo.setUserInfo(inputName.value, inputDescription.value);
   api.setUser(inputName.value, inputDescription.value);
+  editProfile.uxAdd()
   editProfile.close();
 })
 editProfile.setEventListeners();
@@ -109,6 +113,7 @@ editProfile.setEventListeners();
 editProfileBtn.addEventListener('click', () => {
   editProfileValidation.activateSubmitBtn(editProfileSubmitBtn);
   editProfileValidation.eraseError(editPopup);
+  editProfile.uxRemove()
   editProfile.open();
   inputName.value = userInfo.getUserInfo().name;
   inputDescription.value = userInfo.getUserInfo().description;
@@ -121,6 +126,7 @@ const addCard = new PopupWithForm(addPopup, () => {
   .then((data) => {
     renderCard(data)
   });
+  addCard.uxAdd()
   addCard.close();
 }
 )
@@ -129,6 +135,7 @@ addCard.setEventListeners();
 addCardBtn.addEventListener('click', () => {
   addCardValidation.inactivateSubmitBtn(addCardSubmitBtn);
   addCardValidation.eraseError(addPopup);
+  addCard.uxRemove();
   addCard.open();
 });
 

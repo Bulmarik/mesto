@@ -47,7 +47,6 @@ export default class Card {
   _likeCard() {
     let like = true;
     this._likeCount = this._likes.length;
-    // this._likeCount = this._element.querySelector('.elements__like-count').textContent;
     this._likeBtn.addEventListener('click', () => {
       this._likeCount = like ? ++this._likeCount : --this._likeCount;
       like = !like;
@@ -64,6 +63,7 @@ export default class Card {
 
   _removeCard() {
       this._deleteCardData(this._id, this._element);
+      
       this._deleteCard.open();
   }
   
