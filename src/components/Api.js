@@ -70,4 +70,26 @@ export default class Api {
     })
     .then(this._handleResponse)
   }
+
+  addLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: this._headers,
+      body: JSON.stringify({
+        _id: cardId,
+      })
+    })
+    .then(this._handleResponse)
+  }
+
+  delLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers,
+      body: JSON.stringify({
+        _id: cardId,
+      })
+    })
+    .then(this._handleResponse)
+  }
 }

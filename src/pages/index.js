@@ -72,7 +72,7 @@ const cardsSection = new Section({
 }, cards)
 
 function renderCard(data) {
-  const newCard = new Card(data, templateCard, handleCardClick, userId, deleteCard, deleteCardId);
+  const newCard = new Card(data, templateCard, handleCardClick, userId, deleteCard, deleteCardData, delLikeId, addLikeId);
   const createCard = newCard.createCard();
   cardsSection.addItem(createCard);
 }
@@ -134,15 +134,27 @@ addCardBtn.addEventListener('click', () => {
 
 
 // Удаление карточек
-let CardId;
-function deleteCardId(id) {
-  CardId = id;
-  return CardId;
+let cardId;
+let delElement;
+function deleteCardData(id, element) {
+  cardId = id;
+  delElement = element;
+  return [cardId, delElement];
 }
 
 const deleteCard = new PopupWithForm(deletePopup, () => {
-  api.delCard(CardId);
-  // deleteCard.removeCard();
+  api.delCard(cardId);
+  delElement.remove();
   deleteCard.close();
 })
 deleteCard.setEventListeners();
+
+
+// Добавление и удаление лайков
+function addLikeId(id) {
+  api.addLike(id);
+}
+
+function delLikeId(id) {
+  api.delLike(id);
+}
