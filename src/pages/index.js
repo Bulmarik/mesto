@@ -167,19 +167,17 @@ deleteCard.setEventListeners();
 
 
 // Лайки
-function likeCard(id, element, checkLikeStatus, setLikeStatus) {
-  if (checkLikeStatus) {
+function likeCard(id, card) {
+  if (card.checkLikeStatus()) {
     api.delLike(id)
     .then((res) => {
-      element.querySelector('.elements__like-count').textContent = res.likes.length;
-      setLikeStatus(checkLikeStatus, element);
+      card.setLikeStatus(res.likes);
     })
     .catch((err) => console.log(err))
   } else {
     api.addLike(id)
     .then((res) => {
-      element.querySelector('.elements__like-count').textContent = res.likes.length;
-      setLikeStatus(checkLikeStatus, element);
+      card.setLikeStatus(res.likes);
     })
     .catch((err) => console.log(err))
   }
