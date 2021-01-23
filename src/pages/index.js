@@ -81,20 +81,20 @@ function renderCard(data) {
 
 // Аватарка
 const editAvatar = new PopupWithForm(avatarPopup, () => {
+  editAvatar.uxAdd();
   api.setAvatar(inputAvatarUrl.value)
     .then(() => {
       profileImage.src = inputAvatarUrl.value;
       editAvatar.close();
     })
     .catch((err) => console.log(err))
-    .finally(() => editAvatar.uxAdd())
+    .finally(() => editAvatar.uxRemove())
 })
 editAvatar.setEventListeners();
 
 editAvatarBtn.addEventListener('click', () => {
   editAvatarValidation.inactivateSubmitBtn(editAvatarSubmitBtn);
   editAvatarValidation.eraseError(avatarPopup);
-  editAvatar.uxRemove();
   editAvatar.open();
 });
 
@@ -106,20 +106,20 @@ const userInfo = new UserInfo({
 })
 
 const editProfile = new PopupWithForm(editPopup, () => {
+  editProfile.uxAdd();
   api.setUser(inputName.value, inputDescription.value)
   .then(() => {
       userInfo.setUserInfo(inputName.value, inputDescription.value);
       editProfile.close();
   })
   .catch((err) => console.log(err))
-  .finally(() => editProfile.uxAdd())
+  .finally(() => editProfile.uxRemove())
 })
 editProfile.setEventListeners();
 
 editProfileBtn.addEventListener('click', () => {
   editProfileValidation.activateSubmitBtn(editProfileSubmitBtn);
   editProfileValidation.eraseError(editPopup);
-  editProfile.uxRemove()
   editProfile.open();
   inputName.value = userInfo.getUserInfo().name;
   inputDescription.value = userInfo.getUserInfo().description;
@@ -128,20 +128,20 @@ editProfileBtn.addEventListener('click', () => {
 
 // Добавление карточек
 const addCard = new PopupWithForm(addPopup, () => {
+  addCard.uxAdd();
   api.addNewCard({name: inputPlace.value, link: inputUrl.value})
   .then((data) => {
     renderCard(data);
     addCard.close();
   })
   .catch((err) => console.log(err))
-  .finally(() => addCard.uxAdd())
+  .finally(() => addCard.uxRemove())
 })
 addCard.setEventListeners();
 
 addCardBtn.addEventListener('click', () => {
   addCardValidation.inactivateSubmitBtn(addCardSubmitBtn);
   addCardValidation.eraseError(addPopup);
-  addCard.uxRemove();
   addCard.open();
 });
 
@@ -166,20 +166,20 @@ const deleteCard = new PopupWithForm(deletePopup, () => {
 deleteCard.setEventListeners();
 
 
-// Добавление и удаление лайков
-function likeCard(id, element) {
-  if (element.querySelector('.elements__like-btn').classList.contains('elements__like-btn_active')) {
+// Лайки
+function likeCard(id, element, checkLikeStatus, setLikeStatus) {
+  if (checkLikeStatus) {
     api.delLike(id)
     .then((res) => {
-      element.querySelector('.elements__like-btn').classList.remove('elements__like-btn_active');
       element.querySelector('.elements__like-count').textContent = res.likes.length;
+      setLikeStatus(checkLikeStatus, element);
     })
     .catch((err) => console.log(err))
   } else {
     api.addLike(id)
     .then((res) => {
-      element.querySelector('.elements__like-btn').classList.add('elements__like-btn_active');
       element.querySelector('.elements__like-count').textContent = res.likes.length;
+      setLikeStatus(checkLikeStatus, element);
     })
     .catch((err) => console.log(err))
   }
